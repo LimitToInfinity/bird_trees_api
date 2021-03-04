@@ -2,7 +2,7 @@ class BirdsController < ApplicationController
 
   def index
     @birds = Bird.all
-    render json: @birds
+    render json: @birds, include: :tree
   end
 
   def show
@@ -11,10 +11,10 @@ class BirdsController < ApplicationController
   end
 
   def create
-    byebug
     @bird = Bird.create(
       name: params[:name],
-      species: params[:species]
+      species: params[:species],
+      tree_id: params[:tree_id]
     )
     render json: @bird, status: :created
   end
